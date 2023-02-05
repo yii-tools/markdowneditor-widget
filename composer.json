@@ -18,6 +18,7 @@
         "yii-tools/html": "^1.0@dev",
         "yii-tools/simplemde-asset": "^1.0@dev",
         "yiisoft/assets": "^3.0",
+        "yiisoft/strings": "^2.1",
         "yiisoft/translator": "^2.2",
         "yiisoft/translator-message-php": "^1.1",
         "yiisoft/view": "^7.0",
