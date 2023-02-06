@@ -22,7 +22,7 @@ For install this package, you need [composer](https://getcomposer.org/).
 composer require yii-tools/markdowneditor-widget
 ```
 
-## Usage asset:
+## Usage asset
 
 For use read the [docs](/docs/asset.md).
 
