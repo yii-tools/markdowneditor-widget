@@ -15,9 +15,23 @@ use Yii\MarkDownEditor\MarkDownEditor;
 <?= MarkDownEditor::widget([$form, 'message'])
     ->autoFocusEditor()
     ->autoSave(2000)
-    ->initialValue('Write your message here...') ?>
+    ->initialValue('Write your message here...')
+?>
 ```
 
+### Example of usage with Field::class
+
+```php
+<?php
+
+declare(strict_types=1);
+?>
+
+<?= Field::widget([MarkDownEditor::widget([$form, 'message'])])
+    ->containerClass('mt-3')
+    ->notLabel()
+?>
+```
 
 ### Methods
 
