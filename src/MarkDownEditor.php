@@ -63,7 +63,8 @@ final class MarkDownEditor extends AbstractInputWidget
 
     /**
      * Returns a new instance specifying autofocuses the editor.
-     * Defaults to `false`.
+     *
+     * @param bool $value Whether to autofocus the editor. Defaults to `false`.
      */
     public function autoFocusEditor(bool $value): self
     {
@@ -77,8 +78,7 @@ final class MarkDownEditor extends AbstractInputWidget
      * Returns a new instance specifying saves the text that's being written and will load it back in the future.
      * It will forget the text when the form it's contained in is submitted.
      *
-     * @param int $delay The delay in milliseconds between each save.
-     * Defaults to `1000`.
+     * @param int $delay The delay in milliseconds between each save. Defaults to `1000`.
      */
     public function autoSave(int $delay): self
     {
@@ -95,6 +95,8 @@ final class MarkDownEditor extends AbstractInputWidget
     /**
      * Returns a new instance specifying force text changes made in SimpleMDE to be immediately stored in original
      * textarea.
+     *
+     * @param bool $value Whether to force text changes made in SimpleMDE to be immediately stored in original textarea.
      * Defaults to `false`.
      */
     public function forceSync(bool $value): self
@@ -109,7 +111,7 @@ final class MarkDownEditor extends AbstractInputWidget
      * Returns a new instance specifying an array of icon names to hide. Can be used to hide specific icons shown by
      * default without completely customizing the toolbar.
      *
-     * @param array $icons The icon names to hide.
+     * @param array $icons The icon names to hide. Defaults to `[]`.
      */
     public function hiddenIcons(array $icons): self
     {
@@ -123,7 +125,8 @@ final class MarkDownEditor extends AbstractInputWidget
 
     /**
      * Returns a new instance specifying indent using spaces instead of tabs.
-     * Defaults to `true`.
+     *
+     * @param bool $value Whether to indent using spaces instead of tabs. Defaults to `true`.
      */
     public function indentWithTabs(bool $value): self
     {
@@ -136,7 +139,7 @@ final class MarkDownEditor extends AbstractInputWidget
     /**
      * Returns a new instance specifying the initial value of the editor.
      *
-     * @param mixed $value The initial value of the editor.
+     * @param mixed $value The initial value of the editor. Defaults to `''`.
      */
     public function initialValue(mixed $value): self
     {
@@ -148,7 +151,8 @@ final class MarkDownEditor extends AbstractInputWidget
 
     /**
      * Returns a new instance specifying disable line wrapping.
-     * Defaults to `false`.
+     *
+     * @param bool $value Whether to disable line wrapping. Defaults to `false`.
      */
     public function lineWrapping(bool $value): self
     {
@@ -175,7 +179,7 @@ final class MarkDownEditor extends AbstractInputWidget
     /**
      * Returns a new instance specifying the placeholder text to display when the editor is empty.
      *
-     * @param string $value The placeholder text to display when the editor is empty.
+     * @param string $value The placeholder text to display when the editor is empty. Defaults to `''`.
      */
     public function placeholder(string $value): self
     {
@@ -186,7 +190,8 @@ final class MarkDownEditor extends AbstractInputWidget
     }
 
     /**
-     * Returns a new instance that specifies whether a JS alert window requests the image URL or link.
+     * Returns a new instance that specifies whether a JS alert window requests the image URL or link. Defaults to
+     * `false`.
      */
     public function promptURLs(bool $value): self
     {
@@ -210,7 +215,7 @@ final class MarkDownEditor extends AbstractInputWidget
     /**
      * Returns a new instance specifying the icons to show in the toolbar.
      *
-     * @param array $icons The icon names to show.
+     * @param array $icons The icon names to show. Defaults to `[]`.
      */
     public function showIcons(array $icons): self
     {
@@ -224,7 +229,8 @@ final class MarkDownEditor extends AbstractInputWidget
 
     /**
      * Returns a new instance specifying whether spell checking is enabled.
-     * Defaults to `false`.
+     *
+     * @param bool $value Whether spell checking is enabled. Defaults to `false`.
      */
     public function spellChecker(bool $value): self
     {
@@ -236,7 +242,8 @@ final class MarkDownEditor extends AbstractInputWidget
 
     /**
      * Returns a new instance specifying whether to style the selected text.
-     * Defaults to `false`.
+     *
+     * @param bool $value Whether to style the selected text. Defaults to `false`.
      */
     public function styleSelectedText(bool $value): self
     {
@@ -248,7 +255,8 @@ final class MarkDownEditor extends AbstractInputWidget
 
     /**
      * Returns a new instance specifying the tab size.
-     * Defaults to `2`.
+     *
+     * @param int $value The tab size. Defaults to `2`.
      */
     public function tabSize(int $value): self
     {
@@ -261,9 +269,7 @@ final class MarkDownEditor extends AbstractInputWidget
     /**
      * Returns a new instance specifying the toolbar configuration.
      *
-     * @param array $toolbar The toolbar configuration.
-     *
-     * @see toolbar
+     * @param array $toolbar The toolbar configuration. Defaults to `[]`.
      */
     public function toolbar(array $toolbar): self
     {
@@ -277,9 +283,8 @@ final class MarkDownEditor extends AbstractInputWidget
 
     /**
      * Returns a new instance specifying whether to show tooltips for toolbar buttons.
-     * Defaults to `false`.
      *
-     * @param bool $value Whether to show tooltips for toolbar buttons.
+     * @param bool $value Whether to show tooltips for toolbar buttons. Defaults to `false`.
      */
     public function toolbarTips(bool $value): self
     {

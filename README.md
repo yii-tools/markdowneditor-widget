@@ -26,6 +26,10 @@ composer require yii-tools/markdowneditor-widget
 
 For use read the [docs](/docs/asset.md).
 
+## Usage widget
+
+For use read the [docs](/docs/widget.md).
+
 ## Checking dependencies
 
 This package uses [composer-require-checker](https://github.com/maglnet/ComposerRequireChecker) to check if all dependencies are correctly defined in `composer.json`.
