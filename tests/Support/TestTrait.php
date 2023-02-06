@@ -19,6 +19,7 @@ use Yiisoft\Widget\WidgetFactory;
 
 trait TestTrait
 {
+    protected AssetPublisher $assetPublisher;
     private Aliases $aliases;
     private AssetManager $assetManager;
     private WebView $webView;
@@ -32,16 +33,16 @@ trait TestTrait
 
         $this->aliases = new Aliases(
             [
-                '@root' => __DIR__ . '/runtime',
-                '@assets' => '@root',
-                '@assetsUrl' => '@root',
-                '@baseUrl' => '/',
-                '@npm' => dirname(__DIR__, 2) . '/node_modules',
+                '@root' => dirname(__DIR__, 2),
+                '@npm' => '@root/node_modules',
+                '@assetsUrl' => '/',
+                '@assets' => __DIR__ . '/runtime',
             ],
         );
         $this->assetManager = new AssetManager($this->aliases, new AssetLoader($this->aliases, false, []));
+        $this->assetPublisher = new AssetPublisher($this->aliases);
         $this->webView = new WebView(dirname(__DIR__) . '/runtime', new SimpleEventDispatcher());
-        $this->assetManager = $this->assetManager->withPublisher(new AssetPublisher($this->aliases));
+        $this->assetManager = $this->assetManager->withPublisher($this->assetPublisher);
 
         $container = new SimpleContainer(
             [
@@ -58,6 +59,6 @@ trait TestTrait
     {
         parent::tearDown();
 
-        Assert::removeFilesFromDirectory($this->aliases->get('@root'));
+        Assert::removeFilesFromDirectory($this->aliases->get('@assets'));
     }
 }

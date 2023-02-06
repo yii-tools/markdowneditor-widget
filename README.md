@@ -22,6 +22,10 @@ For install this package, you need [composer](https://getcomposer.org/).
 composer require yii-tools/markdowneditor-widget
 ```
 
+## Usage asset:
+
+For use read the [docs](/docs/asset.md).
+
 ## Checking dependencies
 
 This package uses [composer-require-checker](https://github.com/maglnet/ComposerRequireChecker) to check if all dependencies are correctly defined in `composer.json`.

@@ -7,7 +7,7 @@ namespace Yii\MarkDownEditor;
 use InvalidArgumentException;
 use JsonException;
 use Yii\FormModel\FormModelInterface;
-use Yii\SimpleMde\Asset\Npm\Min\MarkDownEditorAsset;
+use Yii\MarkDownEditor\Asset\Npm\MarkDownEditorMinAsset;
 use Yii\Widget\Attribute;
 use Yii\Widget\Input\AbstractInputWidget;
 use Yiisoft\Assets\AssetManager;
@@ -51,7 +51,6 @@ final class MarkDownEditor extends AbstractInputWidget
         'fullscreen',
         'guide',
     ];
-
     public function __construct(
         FormModelInterface $formModel,
         string $attribute,
@@ -321,7 +320,7 @@ final class MarkDownEditor extends AbstractInputWidget
      */
     private function registerAssets(): void
     {
-        $this->assetManager->register(MarkDownEditorAsset::class);
+        $this->assetManager->register(MarkDownEditorMinAsset::class);
         $this->webView->registerJs($this->getScript());
     }
 

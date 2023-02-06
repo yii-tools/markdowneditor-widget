@@ -6,10 +6,10 @@ namespace Yii\MarkDownEditor\Tests;
 
 use JsonException;
 use PHPUnit\Framework\TestCase;
+use Yii\MarkDownEditor\Asset\Npm\MarkDownEditorMinAsset;
 use Yii\MarkDownEditor\MarkDownEditor;
 use Yii\MarkDownEditor\Tests\Support\TestForm;
 use Yii\MarkDownEditor\Tests\Support\TestTrait;
-use Yii\SimpleMde\Asset\Npm\Min\MarkDownEditorAsset;
 use Yii\Support\Assert;
 use Yiisoft\Definitions\Exception\CircularReferenceException;
 use Yiisoft\Definitions\Exception\InvalidConfigException;
@@ -209,7 +209,7 @@ final class RenderTest extends TestCase
             HTML,
             MarkDownEditor::widget([new TestForm(), 'string'])->render(),
         );
-        $this->assertTrue($this->assetManager->isRegisteredBundle(MarkDownEditorAsset::class));
+        $this->assertTrue($this->assetManager->isRegisteredBundle(MarkDownEditorMinAsset::class));
     }
 
     /**
