@@ -51,6 +51,7 @@ final class MarkDownEditor extends AbstractInputWidget
         'fullscreen',
         'guide',
     ];
+
     public function __construct(
         FormModelInterface $formModel,
         string $attribute,
