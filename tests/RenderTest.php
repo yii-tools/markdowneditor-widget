@@ -6,8 +6,7 @@ namespace Yii\MarkDownEditor\Tests;
 
 use JsonException;
 use PHPUnit\Framework\TestCase;
-use Yii\MarkDownEditor\Asset\MarkDownEditorCdnAsset;
-use Yii\MarkDownEditor\Asset\MarkDownEditorProdAsset;
+use Yii\MarkDownEditor\Asset;
 use Yii\MarkDownEditor\MarkDownEditor;
 use Yii\MarkDownEditor\Tests\Support\TestForm;
 use Yii\MarkDownEditor\Tests\Support\TestTrait;
@@ -65,11 +64,26 @@ final class RenderTest extends TestCase
      * @throws NotInstantiableException
      * @throws \Yiisoft\Assets\Exception\InvalidConfigException
      */
-    public function testEnvironmentAsset(): void
+    public function testEnvironmentAssetWithCdn(): void
     {
         MarkDownEditor::widget([new TestForm(), 'string'])->environmentAsset('Cdn')->render();
 
-        $this->assertTrue($this->assetManager->isRegisteredBundle(MarkDownEditorCdnAsset::class));
+        $this->assertTrue($this->assetManager->isRegisteredBundle(Asset\MarkDownEditorCdnAsset::class));
+    }
+
+    /**
+     * @throws CircularReferenceException
+     * @throws InvalidConfigException
+     * @throws JsonException
+     * @throws NotFoundException
+     * @throws NotInstantiableException
+     * @throws \Yiisoft\Assets\Exception\InvalidConfigException
+     */
+    public function testEnvironmentAssetWithDev(): void
+    {
+        MarkDownEditor::widget([new TestForm(), 'string'])->environmentAsset('Dev')->render();
+
+        $this->assertTrue($this->assetManager->isRegisteredBundle(Asset\MarkDownEditorDevAsset::class));
     }
 
     /**
@@ -225,7 +239,7 @@ final class RenderTest extends TestCase
             HTML,
             MarkDownEditor::widget([new TestForm(), 'string'])->render(),
         );
-        $this->assertTrue($this->assetManager->isRegisteredBundle(MarkDownEditorProdAsset::class));
+        $this->assertTrue($this->assetManager->isRegisteredBundle(Asset\MarkDownEditorProdAsset::class));
     }
 
     /**
