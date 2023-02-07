@@ -26,6 +26,7 @@ use Yii\MarkDownEditor\MarkDownEditor;
 
 declare(strict_types=1);
 
+use Yii\Forms\Component\Field;
 use Yii\MarkDownEditor\MarkDownEditor;
 ?>
 
