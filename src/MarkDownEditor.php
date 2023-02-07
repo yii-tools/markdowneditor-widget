@@ -101,7 +101,7 @@ final class MarkDownEditor extends AbstractInputWidget
     public function environmentAsset(string $value): self
     {
         if (!in_array($value, ['Cdn', 'Dev', 'Prod'], true)) {
-            throw new InvalidArgumentException('Invalid environment asset: ' . $value);
+            throw new InvalidArgumentException('Invalid environment asset: ' . $value . '.');
         }
 
         $new = clone $this;
