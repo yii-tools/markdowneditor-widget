@@ -186,9 +186,9 @@ final class RenderTest extends TestCase
      * @throws NotInstantiableException
      * @throws \Yiisoft\Assets\Exception\InvalidConfigException
      */
-    public function testOptions(): void
+    public function testOption(): void
     {
-        MarkDownEditor::widget([new TestForm(), 'string'])->options('placeholder', 'Hello World')->render();
+        MarkDownEditor::widget([new TestForm(), 'string'])->option('placeholder', 'Hello World')->render();
 
         $this->assertStringContainsString('placeholder: "Hello World"', $this->getScript());
     }
