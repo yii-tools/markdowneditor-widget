@@ -2,7 +2,7 @@
 
 The widget is a wrapper for the [SimpleMDE](https://simplemde.com/) editor. The assets are registered in the view automatically when the widget is used.
 
-### Example of usage simple
+### Example of usage simple in the view
 
 ```php
 <?php
@@ -19,7 +19,7 @@ use Yii\MarkDownEditor\MarkDownEditor;
 ?>
 ```
 
-### Example of usage with Field::class
+### Example of usage with Field::class in the view
 
 ```php
 <?php
@@ -34,6 +34,52 @@ use Yii\MarkDownEditor\MarkDownEditor;
     ->notLabel()
 ?>
 ```
+
+It is suggested to use [cebe/markdown](https://github.com/cebe/markdown), which is a fast and easy to use markdown parser for PHP.
+
+### Example of usage in the controller
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App\Controller;
+
+use App\Form\ContactForm;
+use cebe\markdown\GithubMarkdown;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Yiisoft\Http\Method;
+
+final class ContactAction
+{
+    public function run(
+        GithubMarkdown $parser,
+        ServerRequestInterface $serverRequest,
+        ViewRenderer $viewRenderer
+    ): ResponseInterface {
+        /** @psalm-var array<string, mixed> */
+        $body = $serverRequest->getParsedBody();
+        $method = $serverRequest->getMethod();
+
+        $contactForm =  new ContactForm();
+
+        if ($method === Method::POST && $contactForm->load($body)) {
+            $message = '';
+
+            if ($contactForm->getMessage() !== '') {
+                $message = $parser->parse($contactForm->getMessage());
+            }
+ 
+    	    // your code here ...
+        }
+
+        // your code here ...
+    }
+}
+````
+
 
 ### Methods
 
