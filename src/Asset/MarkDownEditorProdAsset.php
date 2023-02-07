@@ -8,7 +8,7 @@ use Yiisoft\Assets\AssetBundle;
 use Yiisoft\Files\PathMatcher\PathMatcher;
 
 /**
- * Min asset bundle for the MarkDownEditor widget.
+ * Production asset bundle for the MarkDownEditor widget.
  */
 final class MarkDownEditorProdAsset extends AssetBundle
 {
