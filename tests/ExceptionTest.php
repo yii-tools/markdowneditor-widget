@@ -44,7 +44,7 @@ final class ExceptionTest extends TestCase
     public function testEnvironmentAsset(): void
     {
         $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Invalid environment asset: test');
+        $this->expectExceptionMessage('Invalid environment asset: test.');
 
         MarkDownEditor::widget([new TestForm(), 'string'])->environmentAsset('test');
     }
