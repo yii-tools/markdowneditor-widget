@@ -7,7 +7,6 @@ namespace Yii\MarkDownEditor;
 use InvalidArgumentException;
 use JsonException;
 use Yii\FormModel\FormModelInterface;
-use Yii\MarkDownEditor\Asset\Npm\MarkDownEditorMinAsset;
 use Yii\Widget\Attribute;
 use Yii\Widget\Input\AbstractInputWidget;
 use Yiisoft\Assets\AssetManager;
@@ -28,6 +27,7 @@ final class MarkDownEditor extends AbstractInputWidget
 
     /** @psalm-var array<string, mixed> $editorOptions */
     private array $editorOptions = [];
+    private string $environmentAsset = 'Prod';
     private array $toolbar = [
         'bold',
         'italic',
@@ -88,6 +88,24 @@ final class MarkDownEditor extends AbstractInputWidget
             'enabled' => true,
             'uniqueId' => $this->getId(),
         ];
+
+        return $new;
+    }
+
+    /**
+     * Returns a new instance with the specified environment of asset.
+     *
+     * @param string $value The environment of assets. Acceptable values are `dev`, `prod` and `cdn`. Defaults to
+     * 'prod'.
+     */
+    public function environmentAsset(string $value): self
+    {
+        if (!in_array($value, ['Cdn', 'Dev', 'Prod'], true)) {
+            throw new InvalidArgumentException('Invalid environment asset: ' . $value);
+        }
+
+        $new = clone $this;
+        $new->environmentAsset = $value;
 
         return $new;
     }
@@ -326,7 +344,9 @@ final class MarkDownEditor extends AbstractInputWidget
      */
     private function registerAssets(): void
     {
-        $this->assetManager->register(MarkDownEditorMinAsset::class);
+        $asset = 'Yii\MarkDownEditor\Asset\MarkDownEditor' . $this->environmentAsset . 'Asset';
+
+        $this->assetManager->register($asset);
         $this->webView->registerJs($this->getScript());
     }
 

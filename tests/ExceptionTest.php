@@ -41,6 +41,20 @@ final class ExceptionTest extends TestCase
      * @throws NotFoundException
      * @throws NotInstantiableException
      */
+    public function testEnvironmentAsset(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Invalid environment asset: test');
+
+        MarkDownEditor::widget([new TestForm(), 'string'])->environmentAsset('test');
+    }
+
+    /**
+     * @throws CircularReferenceException
+     * @throws InvalidConfigException
+     * @throws NotFoundException
+     * @throws NotInstantiableException
+     */
     public function testHiddenIcons(): void
     {
         $this->expectException(InvalidArgumentException::class);

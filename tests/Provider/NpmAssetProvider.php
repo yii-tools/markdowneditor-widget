@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Yii\MarkDownEditor\Tests\Provider;
 
-use Yii\MarkDownEditor\Asset\Npm;
+use Yii\MarkDownEditor\Asset;
 
 final class NpmAssetProvider
 {
@@ -16,11 +16,19 @@ final class NpmAssetProvider
         return [
             [
                 'Css',
-                Npm\MarkDownEditorDevAsset::class,
+                Asset\MarkDownEditorDevAsset::class,
             ],
             [
                 'Js',
-                Npm\MarkDownEditorMinAsset::class,
+                Asset\MarkDownEditorDevAsset::class,
+            ],
+            [
+                'Css',
+                Asset\MarkDownEditorProdAsset::class,
+            ],
+            [
+                'Js',
+                Asset\MarkDownEditorProdAsset::class,
             ],
         ];
     }

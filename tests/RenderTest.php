@@ -6,7 +6,8 @@ namespace Yii\MarkDownEditor\Tests;
 
 use JsonException;
 use PHPUnit\Framework\TestCase;
-use Yii\MarkDownEditor\Asset\Npm\MarkDownEditorMinAsset;
+use Yii\MarkDownEditor\Asset\MarkDownEditorCdnAsset;
+use Yii\MarkDownEditor\Asset\MarkDownEditorProdAsset;
 use Yii\MarkDownEditor\MarkDownEditor;
 use Yii\MarkDownEditor\Tests\Support\TestForm;
 use Yii\MarkDownEditor\Tests\Support\TestTrait;
@@ -54,6 +55,21 @@ final class RenderTest extends TestCase
             'autosave: {"delay":500,"enabled":true,"uniqueId":"testform-string"}',
             $this->getScript(),
         );
+    }
+
+    /**
+     * @throws CircularReferenceException
+     * @throws InvalidConfigException
+     * @throws JsonException
+     * @throws NotFoundException
+     * @throws NotInstantiableException
+     * @throws \Yiisoft\Assets\Exception\InvalidConfigException
+     */
+    public function testEnvironmentAsset(): void
+    {
+        MarkDownEditor::widget([new TestForm(), 'string'])->environmentAsset('Cdn')->render();
+
+        $this->assertTrue($this->assetManager->isRegisteredBundle(MarkDownEditorCdnAsset::class));
     }
 
     /**
@@ -209,7 +225,7 @@ final class RenderTest extends TestCase
             HTML,
             MarkDownEditor::widget([new TestForm(), 'string'])->render(),
         );
-        $this->assertTrue($this->assetManager->isRegisteredBundle(MarkDownEditorMinAsset::class));
+        $this->assertTrue($this->assetManager->isRegisteredBundle(MarkDownEditorProdAsset::class));
     }
 
     /**
