@@ -186,7 +186,7 @@ final class MarkDownEditor extends AbstractInputWidget
      * @param string $attribute The name of the option.
      * @param mixed $value The value of the option.
      */
-    public function options(string $attribute, mixed $value): self
+    public function option(string $attribute, mixed $value): self
     {
         $new = clone $this;
         $new->editorOptions[$attribute] = $value;
