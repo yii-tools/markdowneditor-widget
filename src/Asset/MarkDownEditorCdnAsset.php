@@ -7,7 +7,7 @@ namespace Yii\MarkDownEditor\Asset;
 use Yiisoft\Assets\AssetBundle;
 
 /**
- * Cdn asset bundle for the MarkDownEditor widget.
+ * Content delivery network asset bundle for the MarkDownEditor widget.
  */
 final class MarkDownEditorCdnAsset extends AssetBundle
 {
