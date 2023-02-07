@@ -42,7 +42,7 @@ Method               | Description                                              
 `autoFocusEditor()`  | Returns a new instance specifying autofocuses the editor.| `false`
 `autoSave()`         | Returns a new instance specifying autosaves the editor.  | 1000
 `cols()`             | Returns a new instance specifying maximum number of characters per line of text for the UA to show. | `20`
-`environmentAsset()` | Returns a new instance specifying the environment asset. | `Prod`
+`environmentAsset()` | Returns a new instance specifying the environment asset. Values allowed: `Cdn`, `Dev` and `Prod`. | `Prod`
 `forceSync()`        | Returns a new instance specifying force text changes made in SimpleMDE to be immediately stored in original textarea. | `false`
 `hideIcons()`        | Returns a new instance specifying an array of icon names to hide. Can be used to hide specific icons shown by default without completely customizing the toolbar. | `[]`
 `indentWithTabs()`   | Returns a new instance specifying indent using spaces instead of tabs. | `true`
