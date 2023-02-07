@@ -25,6 +25,8 @@ use Yii\MarkDownEditor\MarkDownEditor;
 <?php
 
 declare(strict_types=1);
+
+use Yii\MarkDownEditor\MarkDownEditor;
 ?>
 
 <?= Field::widget([MarkDownEditor::widget([$form, 'message'])])
