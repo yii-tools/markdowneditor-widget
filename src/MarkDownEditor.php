@@ -344,7 +344,7 @@ final class MarkDownEditor extends AbstractInputWidget
      */
     private function registerAssets(): void
     {
-        $asset = 'Yii\MarkDownEditor\Asset\MarkDownEditor' . $this->environmentAsset . 'Asset'::class;
+        $asset = 'Yii\MarkDownEditor\Asset\MarkDownEditor' . $this->environmentAsset . 'Asset';
 
         $this->assetManager->register($asset);
         $this->webView->registerJs($this->getScript());
