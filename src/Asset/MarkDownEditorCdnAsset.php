@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Yii\MarkDownEditor\Asset\Cdn;
+namespace Yii\MarkDownEditor\Asset;
 
 use Yiisoft\Assets\AssetBundle;
 
 /**
- * Asset bundle for the MarkDownEditor widget.
+ * Cdn asset bundle for the MarkDownEditor widget.
  */
-final class MarkDownEditorAsset extends AssetBundle
+final class MarkDownEditorCdnAsset extends AssetBundle
 {
     public bool $cdn = true;
     public array $css = ['https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css'];

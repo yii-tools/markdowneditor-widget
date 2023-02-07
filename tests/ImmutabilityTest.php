@@ -32,6 +32,7 @@ final class ImmutabilityTest extends TestCase
 
         $this->assertNotSame($markDownEditor, $markDownEditor->autoFocusEditor(true));
         $this->assertNotSame($markDownEditor, $markDownEditor->autoSave(1000));
+        $this->assertNotSame($markDownEditor, $markDownEditor->environmentAsset('Prod'));
         $this->assertNotSame($markDownEditor, $markDownEditor->forceSync(true));
         $this->assertNotSame($markDownEditor, $markDownEditor->hiddenIcons(['heading-1', 'heading-2', 'heading-3']));
         $this->assertNotSame($markDownEditor, $markDownEditor->indentWithTabs(true));

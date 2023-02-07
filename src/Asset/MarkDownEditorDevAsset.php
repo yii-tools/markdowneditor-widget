@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Yii\MarkDownEditor\Asset\Npm;
+namespace Yii\MarkDownEditor\Asset;
 
 use Yiisoft\Assets\AssetBundle;
 use Yiisoft\Files\PathMatcher\PathMatcher;
 
 /**
- * Asset bundle for the MarkDownEditor widget.
+ * Dev asset bundle for the MarkDownEditor widget.
  */
 final class MarkDownEditorDevAsset extends AssetBundle
 {

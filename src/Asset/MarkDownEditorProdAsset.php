@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Yii\MarkDownEditor\Asset\Npm;
+namespace Yii\MarkDownEditor\Asset;
 
 use Yiisoft\Assets\AssetBundle;
 use Yiisoft\Files\PathMatcher\PathMatcher;
 
 /**
- * Asset bundle for the MarkDownEditor widget.
+ * Min asset bundle for the MarkDownEditor widget.
  */
-final class MarkDownEditorMinAsset extends AssetBundle
+final class MarkDownEditorProdAsset extends AssetBundle
 {
     public string|null $basePath = '@assets';
     public string|null $baseUrl = '@assetsUrl';

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Yii\MarkDownEditor\Tests\Provider;
 
-use Yii\MarkDownEditor\Asset\Cdn\MarkDownEditorAsset;
+use Yii\MarkDownEditor\Asset\MarkDownEditorCdnAsset;
 
 final class CdnAssetProvider
 {
@@ -16,11 +16,11 @@ final class CdnAssetProvider
         return [
             [
                 'Css',
-                MarkDownEditorAsset::class,
+                MarkDownEditorCdnAsset::class,
             ],
             [
                 'Js',
-                MarkDownEditorAsset::class,
+                MarkDownEditorCdnAsset::class,
             ],
         ];
     }
