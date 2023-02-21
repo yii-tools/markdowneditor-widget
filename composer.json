@@ -20,7 +20,7 @@
         "yiisoft/assets": "^3.0",
         "yiisoft/files": "^2.0",
         "yiisoft/strings": "^2.1",
-        "yiisoft/translator": "^2.2",
+        "yiisoft/translator": "^3.0",
         "yiisoft/translator-message-php": "^1.1",
         "yiisoft/view": "^7.0",
         "yiisoft/widget": "^2.0",
