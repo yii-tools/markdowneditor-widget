@@ -13,7 +13,7 @@ use Yii\MarkDownEditor\MarkDownEditor;
 
 /**
  * @var \Yiisoft\Assets\AssetManager $assetManager
- * @var $this $webView
+ * @var \Yiisoft\View\WebView $this
  */
 ?>
 
@@ -38,7 +38,7 @@ use Yii\MarkDownEditor\MarkDownEditor;
 
 /**
  * @var \Yiisoft\Assets\AssetManager $assetManager
- * @var $this $webView
+ * @var \Yiisoft\View\WebView $this
  */
 ?>
 
