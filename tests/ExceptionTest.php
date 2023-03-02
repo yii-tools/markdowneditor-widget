@@ -17,6 +17,17 @@ final class ExceptionTest extends TestCase
 {
     use TestTrait;
 
+    public function testAssetManager(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('The `assetManager()` property must be set.');
+
+        MarkDownEditor::widget([new TestForm(), 'string'])
+            ->attributes(['value' => 1])
+            ->webView($this->webView)
+            ->render();
+    }
+
     public function testContent(): void
     {
         $this->expectException(InvalidArgumentException::class);
@@ -59,5 +70,16 @@ final class ExceptionTest extends TestCase
         $this->expectExceptionMessage('Invalid toolbar item: test1');
 
         MarkDownEditor::widget([new TestForm(), 'string'])->toolbar(['test1']);
+    }
+
+    public function testWebView(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('The `webView()` property must be set.');
+
+        MarkDownEditor::widget([new TestForm(), 'string'])
+            ->assetManager($this->assetManager)
+            ->attributes(['value' => 1])
+            ->render();
     }
 }

@@ -9,7 +9,6 @@ use JsonException;
 use Yii\Widget\AbstractInputWidget;
 use Yii\Widget\Attribute;
 use Yiisoft\Assets\AssetManager;
-use Yiisoft\Assets\Exception\InvalidConfigException;
 use Yiisoft\Strings\Inflector;
 use Yiisoft\View\WebView;
 
@@ -102,6 +101,8 @@ final class MarkDownEditor extends AbstractInputWidget
      *
      * @param string $value The environment of assets. Acceptable values are `dev`, `prod` and `cdn`. Defaults to
      * 'prod'.
+     *
+     * @throws InvalidArgumentException If the environment asset is invalid.
      */
     public function environmentAsset(string $value): self
     {
@@ -320,17 +321,17 @@ final class MarkDownEditor extends AbstractInputWidget
     }
 
     /**
-     * @throws InvalidConfigException
-     * @throws JsonException
+     * @throws InvalidArgumentException If the `assetManager` or `webView` properties are not set.
+     * @throws JsonException If an error occurs during encoding.
      */
     protected function beforeRun(): bool
     {
         if ($this->assetManager === null) {
-            return false;
+            throw new InvalidArgumentException('The `assetManager()` property must be set.');
         }
 
         if ($this->webView === null) {
-            return false;
+            throw new InvalidArgumentException('The `webView()` property must be set.');
         }
 
         $this->assetManager->register('Yii\MarkDownEditor\Asset\MarkDownEditor' . $this->environmentAsset . 'Asset');
@@ -345,7 +346,7 @@ final class MarkDownEditor extends AbstractInputWidget
     }
 
     /**
-     * @throws JsonException
+     * @throws JsonException If an error occurs during encoding.
      */
     private function getScript(): string
     {
@@ -370,6 +371,9 @@ final class MarkDownEditor extends AbstractInputWidget
         return "var $varName = new SimpleMDE({ $config });";
     }
 
+    /**
+     * @throws InvalidArgumentException If the `value` parameter is not a string or null.
+     */
     private function renderTextArea(): string
     {
         $attributes = $this->attributes;
@@ -393,6 +397,9 @@ final class MarkDownEditor extends AbstractInputWidget
         return $this->renderInput('textarea', (string) $content, null, $attributes);
     }
 
+    /**
+     * @throws InvalidArgumentException If the `icons` parameter contains invalid toolbar items.
+     */
     private function validateIconsToolbar(array $icons): void
     {
         /** @psalm-var string[] $icons */
