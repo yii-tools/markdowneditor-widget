@@ -1,8 +1,8 @@
-## Usage widget
+# Markdown editor widget
 
-The widget is a wrapper for the [SimpleMDE](https://simplemde.com/) editor. The assets are registered in the view automatically when the widget is used.
+The markdown editor widget is a wrapper for the [SimpleMDE](https://simplemde.com/) editor, the assets are registered in the view automatically when the widget is used, and the editor is rendered. You must set the `assetManager` component `Yiisoft\Assets\AssetManager::class` and the `view` component `Yiisoft\View\WebView::class`.
 
-### Example of usage simple in the view
+## Example of usage simple in the view
 
 ```php
 <?php
@@ -10,16 +10,23 @@ The widget is a wrapper for the [SimpleMDE](https://simplemde.com/) editor. The 
 declare(strict_types=1);
 
 use Yii\MarkDownEditor\MarkDownEditor;
+
+/**
+ * @var \Yiisoft\Assets\AssetManager $assetManager
+ * @var $this $webView
+ */
 ?>
 
 <?= MarkDownEditor::widget([$form, 'message'])
+    ->assetManager($assetManager)
     ->autoFocusEditor()
     ->autoSave(2000)
+    ->webView($webView)
     ->initialValue('Write your message here...')
 ?>
 ```
 
-### Example of usage with Field::class in the view
+## Example of usage with Field::class in the view
 
 ```php
 <?php
@@ -28,17 +35,24 @@ declare(strict_types=1);
 
 use Yii\Forms\Component\Field;
 use Yii\MarkDownEditor\MarkDownEditor;
+
+/**
+ * @var \Yiisoft\Assets\AssetManager $assetManager
+ * @var $this $webView
+ */
 ?>
 
 <?= Field::widget([MarkDownEditor::widget([$form, 'message'])])
+    ->assetManager($assetManager)
     ->containerClass('mt-3')
+    ->webView($webView)
     ->notLabel()
 ?>
 ```
 
 It is suggested to use [cebe/markdown](https://github.com/cebe/markdown), which is a fast and easy to use markdown parser for PHP.
 
-### Example of usage in the controller
+## Example of usage in the controller
 
 ```php
 <?php
@@ -81,12 +95,13 @@ final class ContactAction
 }
 ```
 
-### Methods of the widget
+## Methods of the widget
 
 All methods are available on the widget instance.
 
 Method                | Parameter        | Description                                                                                                           | Default
 ----------------------|------------------|-----------------------------------------------------------------------------------------------------------------------|---------
+`assetManager()`      | `AssetManager`   | Returns a new instance specifying the asset manager.                                                                  | `null`
 `autoFocusEditor()`   | `bool`           | Returns a new instance specifying autofocuses the editor.                                                             | `false`
 `autoSave()`          | `int`            | Returns a new instance specifying autosaves the editor.                                                               | `1000`
 `cols()`              | `int`            | Returns a new instance specifying maximum number of characters per line of text for the UA to show.                   | `20`
@@ -106,6 +121,7 @@ Method                | Parameter        | Description                          
 `tabSize()`           | `int`            | Returns a new instance specifying the tab size.                                                                       | `2`
 `toolbar()`           | `array`          | Returns a new instance specifying the toolbar configuration.                                                          | `See below`
 `toolbarTips()`       | `bool`           | Returns a new instance specifying whether to show tooltips for toolbar buttons.                                       | `false`
+`webView()`           | `WebView`        | Returns a new instance specifying the web view.                                                                       | `null`
 `wrap()`              | `string`         | Returns a new instance specifying instructs the UA to add no line breaks to the submitted value of the textarea.      | `'hard'`
 
 #### Default toolbar

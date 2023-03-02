@@ -14,7 +14,7 @@
     "require": {
         "php": "^8.1",
         "foxy/foxy": "^1.2",
-        "yii-tools/awesome-widget": "^1.0@dev",
+        "yii-tools/awesome-widget": "dev-rework-base-code as 1.0@dev",
         "yii-tools/form-model": "^1.0@dev",
         "yii-tools/html": "^1.0@dev",
         "yiisoft/assets": "^4.0",
@@ -23,7 +23,6 @@
         "yiisoft/translator": "^3.0",
         "yiisoft/translator-message-php": "^1.1",
         "yiisoft/view": "^8.0",
-        "yiisoft/widget": "^2.0",
         "yiisoft/yii-event": "^2.0"
     },
     "require-dev": {

@@ -4,17 +4,12 @@ declare(strict_types=1);
 
 namespace Yii\MarkDownEditor\Tests;
 
-use JsonException;
 use PHPUnit\Framework\TestCase;
 use Yii\MarkDownEditor\Asset;
 use Yii\MarkDownEditor\MarkDownEditor;
 use Yii\MarkDownEditor\Tests\Support\TestForm;
 use Yii\MarkDownEditor\Tests\Support\TestTrait;
 use Yii\Support\Assert;
-use Yiisoft\Definitions\Exception\CircularReferenceException;
-use Yiisoft\Definitions\Exception\InvalidConfigException;
-use Yiisoft\Definitions\Exception\NotInstantiableException;
-use Yiisoft\Factory\NotFoundException;
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
@@ -23,32 +18,24 @@ final class RenderTest extends TestCase
 {
     use TestTrait;
 
-    /**
-     * @throws CircularReferenceException
-     * @throws InvalidConfigException
-     * @throws JsonException
-     * @throws NotFoundException
-     * @throws NotInstantiableException
-     * @throws \Yiisoft\Assets\Exception\InvalidConfigException
-     */
     public function testAutoFocusEditor(): void
     {
-        MarkDownEditor::widget([new TestForm(), 'string'])->autoFocusEditor(false)->render();
+        MarkDownEditor::widget([new TestForm(), 'string'])
+            ->assetManager($this->assetManager)
+            ->autoFocusEditor(false)
+            ->webView($this->webView)
+            ->render();
 
         $this->assertStringContainsString('autofocus: false', $this->getScript());
     }
 
-    /**
-     * @throws CircularReferenceException
-     * @throws InvalidConfigException
-     * @throws JsonException
-     * @throws NotFoundException
-     * @throws NotInstantiableException
-     * @throws \Yiisoft\Assets\Exception\InvalidConfigException
-     */
     public function testAutoSave(): void
     {
-        MarkDownEditor::widget([new TestForm(), 'string'])->autoSave(500)->render();
+        MarkDownEditor::widget([new TestForm(), 'string'])
+            ->assetManager($this->assetManager)
+            ->autoSave(500)
+            ->webView($this->webView)
+            ->render();
 
         $this->assertStringContainsString(
             'autosave: {"delay":500,"enabled":true,"uniqueId":"testform-string"}',
@@ -56,292 +43,214 @@ final class RenderTest extends TestCase
         );
     }
 
-    /**
-     * @throws CircularReferenceException
-     * @throws InvalidConfigException
-     * @throws JsonException
-     * @throws NotFoundException
-     * @throws NotInstantiableException
-     * @throws \Yiisoft\Assets\Exception\InvalidConfigException
-     */
     public function testEnvironmentAssetWithCdn(): void
     {
-        MarkDownEditor::widget([new TestForm(), 'string'])->environmentAsset('Cdn')->render();
+        MarkDownEditor::widget([new TestForm(), 'string'])
+            ->assetManager($this->assetManager)
+            ->environmentAsset('Cdn')
+            ->webView($this->webView)
+            ->render();
 
         $this->assertTrue($this->assetManager->isRegisteredBundle(Asset\MarkDownEditorCdnAsset::class));
     }
 
-    /**
-     * @throws CircularReferenceException
-     * @throws InvalidConfigException
-     * @throws JsonException
-     * @throws NotFoundException
-     * @throws NotInstantiableException
-     * @throws \Yiisoft\Assets\Exception\InvalidConfigException
-     */
     public function testEnvironmentAssetWithDev(): void
     {
-        MarkDownEditor::widget([new TestForm(), 'string'])->environmentAsset('Dev')->render();
+        MarkDownEditor::widget([new TestForm(), 'string'])
+            ->assetManager($this->assetManager)
+            ->environmentAsset('Dev')
+            ->webView($this->webView)
+            ->render();
 
         $this->assertTrue($this->assetManager->isRegisteredBundle(Asset\MarkDownEditorDevAsset::class));
     }
 
-    /**
-     * @throws CircularReferenceException
-     * @throws InvalidConfigException
-     * @throws JsonException
-     * @throws NotFoundException
-     * @throws NotInstantiableException
-     * @throws \Yiisoft\Assets\Exception\InvalidConfigException
-     */
     public function testForceSync(): void
     {
-        MarkDownEditor::widget([new TestForm(), 'string'])->forceSync(false)->render();
+        MarkDownEditor::widget([new TestForm(), 'string'])
+            ->assetManager($this->assetManager)
+            ->forceSync(false)
+            ->webView($this->webView)
+            ->render();
 
         $this->assertStringContainsString('forceSync: false', $this->getScript());
     }
 
-    /**
-     * @throws CircularReferenceException
-     * @throws InvalidConfigException
-     * @throws JsonException
-     * @throws NotFoundException
-     * @throws NotInstantiableException
-     * @throws \Yiisoft\Assets\Exception\InvalidConfigException
-     */
     public function testGetElementId(): void
     {
-        MarkDownEditor::widget([new TestForm(), 'string'])->render();
+        MarkDownEditor::widget([new TestForm(), 'string'])
+            ->assetManager($this->assetManager)
+            ->webView($this->webView)
+            ->render();
 
         $this->assertStringContainsString('element: document.getElementById("testform-string")', $this->getScript());
     }
 
-    /**
-     * @throws CircularReferenceException
-     * @throws InvalidConfigException
-     * @throws JsonException
-     * @throws NotFoundException
-     * @throws NotInstantiableException
-     * @throws \Yiisoft\Assets\Exception\InvalidConfigException
-     */
     public function testHiddenIcons(): void
     {
         MarkDownEditor::widget([new TestForm(), 'string'])
+            ->assetManager($this->assetManager)
             ->hiddenIcons(['heading-1', 'heading-2', 'heading-3'])
+            ->webView($this->webView)
             ->render();
 
         $this->assertStringContainsString('hideIcons: ["heading-1","heading-2","heading-3"', $this->getScript());
     }
 
-    /**
-     * @throws CircularReferenceException
-     * @throws InvalidConfigException
-     * @throws JsonException
-     * @throws NotFoundException
-     * @throws NotInstantiableException
-     * @throws \Yiisoft\Assets\Exception\InvalidConfigException
-     */
     public function testIndentWithTabs(): void
     {
-        MarkDownEditor::widget([new TestForm(), 'string'])->indentWithTabs(false)->render();
+        MarkDownEditor::widget([new TestForm(), 'string'])
+            ->assetManager($this->assetManager)
+            ->indentWithTabs(false)
+            ->webView($this->webView)
+            ->render();
 
         $this->assertStringContainsString('indentWithTabs: false', $this->getScript());
     }
 
-    /**
-     * @throws CircularReferenceException
-     * @throws InvalidConfigException
-     * @throws JsonException
-     * @throws NotFoundException
-     * @throws NotInstantiableException
-     * @throws \Yiisoft\Assets\Exception\InvalidConfigException
-     */
     public function testInitialValue(): void
     {
-        MarkDownEditor::widget([new TestForm(), 'string'])->initialValue('Hello World')->render();
+        MarkDownEditor::widget([new TestForm(), 'string'])
+            ->assetManager($this->assetManager)
+            ->initialValue('Hello World')
+            ->webView($this->webView)
+            ->render();
 
         $this->assertStringContainsString('initialValue: "Hello World"', $this->getScript());
     }
 
-    /**
-     * @throws CircularReferenceException
-     * @throws InvalidConfigException
-     * @throws JsonException
-     * @throws NotFoundException
-     * @throws NotInstantiableException
-     * @throws \Yiisoft\Assets\Exception\InvalidConfigException
-     */
     public function testLineWrapping(): void
     {
-        MarkDownEditor::widget([new TestForm(), 'string'])->lineWrapping(true)->render();
+        MarkDownEditor::widget([new TestForm(), 'string'])
+            ->assetManager($this->assetManager)
+            ->lineWrapping(true)
+            ->webView($this->webView)
+            ->render();
 
         $this->assertStringContainsString('lineWrapping: true', $this->getScript());
     }
 
-    /**
-     * @throws CircularReferenceException
-     * @throws InvalidConfigException
-     * @throws JsonException
-     * @throws NotFoundException
-     * @throws NotInstantiableException
-     * @throws \Yiisoft\Assets\Exception\InvalidConfigException
-     */
     public function testOption(): void
     {
-        MarkDownEditor::widget([new TestForm(), 'string'])->option('placeholder', 'Hello World')->render();
+        MarkDownEditor::widget([new TestForm(), 'string'])
+            ->assetManager($this->assetManager)
+            ->option('placeholder', 'Hello World')
+            ->webView($this->webView)
+            ->render();
 
         $this->assertStringContainsString('placeholder: "Hello World"', $this->getScript());
     }
 
-    /**
-     * @throws CircularReferenceException
-     * @throws InvalidConfigException
-     * @throws JsonException
-     * @throws NotFoundException
-     * @throws NotInstantiableException
-     * @throws \Yiisoft\Assets\Exception\InvalidConfigException
-     */
     public function testPromptURLs(): void
     {
-        MarkDownEditor::widget([new TestForm(), 'string'])->promptURLs(true)->render();
+        MarkDownEditor::widget([new TestForm(), 'string'])
+            ->assetManager($this->assetManager)
+            ->promptURLs(true)
+            ->webView($this->webView)
+            ->render();
 
         $this->assertStringContainsString('promptURLs: true', $this->getScript());
     }
 
-    /**
-     * @throws CircularReferenceException
-     * @throws InvalidConfigException
-     * @throws JsonException
-     * @throws NotFoundException
-     * @throws NotInstantiableException
-     * @throws \Yiisoft\Assets\Exception\InvalidConfigException
-     */
     public function testPlaceholder(): void
     {
-        MarkDownEditor::widget([new TestForm(), 'string'])->placeholder('Hello World')->render();
+        MarkDownEditor::widget([new TestForm(), 'string'])
+            ->assetManager($this->assetManager)
+            ->placeholder('Hello World')
+            ->webView($this->webView)
+            ->render();
 
         $this->assertStringContainsString('placeholder: "Hello World"', $this->getScript());
     }
 
-    /**
-     * @throws CircularReferenceException
-     * @throws InvalidConfigException
-     * @throws JsonException
-     * @throws NotFoundException
-     * @throws NotInstantiableException
-     * @throws \Yiisoft\Assets\Exception\InvalidConfigException
-     */
     public function testRender(): void
     {
         $this->assertSame(
             <<<HTML
             <textarea id="testform-string" name="TestForm[string]"></textarea>
             HTML,
-            MarkDownEditor::widget([new TestForm(), 'string'])->render(),
+            MarkDownEditor::widget([new TestForm(), 'string'])
+                ->assetManager($this->assetManager)
+                ->webView($this->webView)
+                ->render(),
         );
         $this->assertTrue($this->assetManager->isRegisteredBundle(Asset\MarkDownEditorProdAsset::class));
     }
 
-    /**
-     * @throws CircularReferenceException
-     * @throws InvalidConfigException
-     * @throws JsonException
-     * @throws NotFoundException
-     * @throws NotInstantiableException
-     * @throws \Yiisoft\Assets\Exception\InvalidConfigException
-     */
     public function testShowIcons(): void
     {
         MarkDownEditor::widget([new TestForm(), 'string'])
+            ->assetManager($this->assetManager)
             ->showIcons(['heading-1', 'heading-2', 'heading-3'])
+            ->webView($this->webView)
             ->render();
 
         $this->assertStringContainsString('showIcons: ["heading-1","heading-2","heading-3"]', $this->getScript());
     }
 
-    /**
-     * @throws CircularReferenceException
-     * @throws InvalidConfigException
-     * @throws JsonException
-     * @throws NotFoundException
-     * @throws NotInstantiableException
-     * @throws \Yiisoft\Assets\Exception\InvalidConfigException
-     */
     public function testSpellChecker(): void
     {
-        MarkDownEditor::widget([new TestForm(), 'string'])->spellChecker(true)->render();
+        MarkDownEditor::widget([new TestForm(), 'string'])
+            ->assetManager($this->assetManager)
+            ->spellChecker(true)
+            ->webView($this->webView)
+            ->render();
 
         $this->assertStringContainsString('spellChecker: true', $this->getScript());
     }
 
-    /**
-     * @throws CircularReferenceException
-     * @throws InvalidConfigException
-     * @throws JsonException
-     * @throws NotFoundException
-     * @throws NotInstantiableException
-     * @throws \Yiisoft\Assets\Exception\InvalidConfigException
-     */
     public function testStyleSelectedText(): void
     {
-        MarkDownEditor::widget([new TestForm(), 'string'])->styleSelectedText(true)->render();
+        MarkDownEditor::widget([new TestForm(), 'string'])
+            ->assetManager($this->assetManager)
+            ->styleSelectedText(true)
+            ->webView($this->webView)
+            ->render();
 
         $this->assertStringContainsString('styleSelectedText: true', $this->getScript());
     }
 
-    /**
-     * @throws CircularReferenceException
-     * @throws InvalidConfigException
-     * @throws JsonException
-     * @throws NotFoundException
-     * @throws NotInstantiableException
-     * @throws \Yiisoft\Assets\Exception\InvalidConfigException
-     */
     public function testTabSize(): void
     {
-        MarkDownEditor::widget([new TestForm(), 'string'])->tabSize(2)->render();
+        MarkDownEditor::widget([new TestForm(), 'string'])
+            ->assetManager($this->assetManager)
+            ->tabSize(2)
+            ->webView($this->webView)
+            ->render();
 
         $this->assertStringContainsString('tabSize: 2', $this->getScript());
     }
 
-    /**
-     * @throws CircularReferenceException
-     * @throws InvalidConfigException
-     * @throws JsonException
-     * @throws NotFoundException
-     * @throws NotInstantiableException
-     * @throws \Yiisoft\Assets\Exception\InvalidConfigException
-     */
     public function testToolbar(): void
     {
-        MarkDownEditor::widget([new TestForm(), 'string'])->toolbar(['bold', 'italic'])->render();
+        MarkDownEditor::widget([new TestForm(), 'string'])
+            ->assetManager($this->assetManager)
+            ->toolbar(['bold', 'italic'])
+            ->webView($this->webView)
+            ->render();
 
         $this->assertStringContainsString('toolbar: ["bold","italic"]', $this->getScript());
     }
 
-    /**
-     * @throws CircularReferenceException
-     * @throws InvalidConfigException
-     * @throws JsonException
-     * @throws NotFoundException
-     * @throws NotInstantiableException
-     * @throws \Yiisoft\Assets\Exception\InvalidConfigException
-     */
     public function testToolbarTips(): void
     {
-        MarkDownEditor::widget([new TestForm(), 'string'])->toolbarTips(true)->render();
+        MarkDownEditor::widget([new TestForm(), 'string'])
+            ->assetManager($this->assetManager)
+            ->toolbarTips(true)
+            ->webView($this->webView)
+            ->render();
 
         $this->assertStringContainsString('toolbarTips: true', $this->getScript());
     }
 
-    /**
-     * @psalm-suppress MixedMethodCall
-     */
     private function getScript(): string
     {
         $script = '';
 
-        /** @psalm-var string[][] $getAllJs */
+        /**
+         * @psalm-var string[][] $getAllJs
+         * @psalm-suppress MixedMethodCall
+         */
         $getAllJs = Assert::inaccessibleProperty($this->webView, 'state')->getJS();
 
         foreach ($getAllJs as $js) {
