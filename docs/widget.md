@@ -2,6 +2,29 @@
 
 The markdown editor widget is a wrapper for the [SimpleMDE](https://simplemde.com/) editor, the assets are registered in the view automatically when the widget is used, and the editor is rendered. You must set the `assetManager` component `Yiisoft\Assets\AssetManager::class` and the `view` component `Yiisoft\View\WebView::class`.
 
+
+**Info:** *Must set the `assetManager` component `Yiisoft\Assets\AssetManager::class` in common params config file.*
+
+## Example config params
+
+```php
+<?php
+
+declare(strict_types=1);
+
+use Yiisoft\Assets\AssetManager;
+use Yiisoft\Definitions\Reference;
+
+return [
+    // View
+    'yiisoft/view' => [
+        'parameters' => [
+            'assetManager' => Reference::to(AssetManager::class),
+        ],
+    ],
+];
+```
+
 ## Example of usage simple in the view
 
 ```php
