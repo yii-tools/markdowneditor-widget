@@ -24,7 +24,7 @@ composer require yii-tools/markdowneditor-widget
 
 ## Usage widget
 
-For use read the [docs](/docs/widget.md).
+[Check the documentation docs](/docs/widget.md) to learn about usage.
 
 ## Checking dependencies
 

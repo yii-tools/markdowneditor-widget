@@ -6,7 +6,6 @@ namespace Yii\MarkDownEditor;
 
 use InvalidArgumentException;
 use JsonException;
-use Yii\FormModel\FormModelInterface;
 use Yii\Widget\AbstractInputWidget;
 use Yii\Widget\Attribute;
 use Yiisoft\Assets\AssetManager;
@@ -25,6 +24,7 @@ final class MarkDownEditor extends AbstractInputWidget
     use Attribute\HasRows;
     use Attribute\HasWrap;
 
+    private AssetManager|null $assetManager = null;
     /** @psalm-var array<string, mixed> $editorOptions */
     private array $editorOptions = [];
     private string $environmentAsset = 'Prod';
@@ -51,14 +51,19 @@ final class MarkDownEditor extends AbstractInputWidget
         'fullscreen',
         'guide',
     ];
+    private WebView|null $webView = null;
 
-    public function __construct(
-        FormModelInterface $formModel,
-        string $attribute,
-        private readonly AssetManager $assetManager,
-        private readonly Webview $webView
-    ) {
-        parent::__construct($formModel, $attribute);
+    /**
+     * Returns a new instance with the specified asset manager instance.
+     *
+     * @param AssetManager $assetManager The asset manager instance.
+     */
+    public function assetManager(AssetManager $assetManager): self
+    {
+        $new = clone $this;
+        $new->assetManager = $assetManager;
+
+        return $new;
     }
 
     /**
@@ -97,6 +102,8 @@ final class MarkDownEditor extends AbstractInputWidget
      *
      * @param string $value The environment of assets. Acceptable values are `dev`, `prod` and `cdn`. Defaults to
      * 'prod'.
+     *
+     * @throws InvalidArgumentException If the environment asset is invalid.
      */
     public function environmentAsset(string $value): self
     {
@@ -220,17 +227,6 @@ final class MarkDownEditor extends AbstractInputWidget
     }
 
     /**
-     * @throws JsonException
-     * @throws InvalidConfigException
-     */
-    public function render(): string
-    {
-        $this->registerAssets();
-
-        return $this->renderTextArea();
-    }
-
-    /**
      * Returns a new instance specifying the icons to show in the toolbar.
      *
      * @param array $icons The icon names to show. Defaults to `[]`.
@@ -313,7 +309,46 @@ final class MarkDownEditor extends AbstractInputWidget
     }
 
     /**
-     * @throws JsonException
+     * Returns a new instance specifying the webview instance.
+     *
+     * @param webView $value The webview instance.
+     */
+    public function webView(webView $value): self
+    {
+        $new = clone $this;
+        $new->webView = $value;
+
+        return $new;
+    }
+
+    /**
+     * @throws InvalidArgumentException If the `assetManager` or `webView` properties are not set.
+     * @throws InvalidConfigException If an error occurs during register asset.
+     * @throws JsonException If an error occurs during encoding.
+     */
+    protected function beforeRun(): bool
+    {
+        if ($this->assetManager === null) {
+            throw new InvalidArgumentException('The `assetManager()` property must be set.');
+        }
+
+        if ($this->webView === null) {
+            throw new InvalidArgumentException('The `webView()` property must be set.');
+        }
+
+        $this->assetManager->register('Yii\MarkDownEditor\Asset\MarkDownEditor' . $this->environmentAsset . 'Asset');
+        $this->webView->registerJs($this->getScript());
+
+        return parent::beforeRun();
+    }
+
+    protected function run(): string
+    {
+        return $this->renderTextArea();
+    }
+
+    /**
+     * @throws JsonException If an error occurs during encoding.
      */
     private function getScript(): string
     {
@@ -339,15 +374,8 @@ final class MarkDownEditor extends AbstractInputWidget
     }
 
     /**
-     * @throws JsonException
-     * @throws InvalidConfigException
+     * @throws InvalidArgumentException If the `value` parameter is not a string or null.
      */
-    private function registerAssets(): void
-    {
-        $this->assetManager->register('Yii\MarkDownEditor\Asset\MarkDownEditor' . $this->environmentAsset . 'Asset');
-        $this->webView->registerJs($this->getScript());
-    }
-
     private function renderTextArea(): string
     {
         $attributes = $this->attributes;
@@ -368,9 +396,12 @@ final class MarkDownEditor extends AbstractInputWidget
 
         $attributes['id'] = $this->getId();
 
-        return $this->run('textarea', (string) $content, null, $attributes);
+        return $this->renderInput('textarea', (string) $content, null, $attributes);
     }
 
+    /**
+     * @throws InvalidArgumentException If the `icons` parameter contains invalid toolbar items.
+     */
     private function validateIconsToolbar(array $icons): void
     {
         /** @psalm-var string[] $icons */

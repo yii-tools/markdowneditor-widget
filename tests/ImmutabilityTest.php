@@ -8,10 +8,6 @@ use PHPUnit\Framework\TestCase;
 use Yii\MarkDownEditor\MarkDownEditor;
 use Yii\MarkDownEditor\Tests\Support\TestForm;
 use Yii\MarkDownEditor\Tests\Support\TestTrait;
-use Yiisoft\Definitions\Exception\CircularReferenceException;
-use Yiisoft\Definitions\Exception\InvalidConfigException;
-use Yiisoft\Definitions\Exception\NotInstantiableException;
-use Yiisoft\Factory\NotFoundException;
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
@@ -20,12 +16,6 @@ final class ImmutabilityTest extends TestCase
 {
     use TestTrait;
 
-    /**
-     * @throws CircularReferenceException
-     * @throws InvalidConfigException
-     * @throws NotFoundException
-     * @throws NotInstantiableException
-     */
     public function testImmutability(): void
     {
         $markDownEditor = MarkDownEditor::widget([new TestForm(), 'string']);

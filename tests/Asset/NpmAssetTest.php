@@ -22,6 +22,7 @@ final class NpmAssetTest extends TestCase
      * @throws InvalidConfigException
      *
      * @psalm-suppress InvalidStringClass
+     * @psalm-suppress MixedArrayAccess
      */
     public function testAssetRegister(string $type, string $assetBundle, string $bundleDepend = null): void
     {
