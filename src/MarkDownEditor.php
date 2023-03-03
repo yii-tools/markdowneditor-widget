@@ -9,6 +9,7 @@ use JsonException;
 use Yii\Widget\AbstractInputWidget;
 use Yii\Widget\Attribute;
 use Yiisoft\Assets\AssetManager;
+use Yiisoft\Assets\Exception\InvalidConfigException;
 use Yiisoft\Strings\Inflector;
 use Yiisoft\View\WebView;
 
@@ -322,6 +323,7 @@ final class MarkDownEditor extends AbstractInputWidget
 
     /**
      * @throws InvalidArgumentException If the `assetManager` or `webView` properties are not set.
+     * @throws InvalidConfigException If an error occurs during register asset.
      * @throws JsonException If an error occurs during encoding.
      */
     protected function beforeRun(): bool
